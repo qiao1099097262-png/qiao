@@ -1,0 +1,18 @@
+{
+  "name": "Roocard",
+  "short_name": "Roocard",
+  "description": "足球球星卡量化分析与仓位管理平台",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#1a1a2e",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
