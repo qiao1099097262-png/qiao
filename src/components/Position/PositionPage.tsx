@@ -148,8 +148,8 @@ export default function PositionPage() {
                 key={p.id}
                 onClick={() => navigate(`/positions/${p.id}`)}
                 className={`card cursor-pointer hover:shadow-md transition-shadow ${
-                  p.status === 'sell-window' ? 'border-warning/50 bg-warning/5' :
-                  p.status === 'stop-loss-warning' ? 'border-danger/50 bg-danger/5' : ''
+                  p.status === 'sell-window' ? 'border-[rgba(191,164,122,0.25)] bg-[rgba(191,164,122,0.05)]' :
+                  p.status === 'stop-loss-warning' ? 'border-[rgba(184,129,120,0.25)] bg-[rgba(184,129,120,0.05)]' : ''
                 }`}
               >
                 <div className="flex items-start justify-between flex-wrap gap-2 mb-2">
@@ -157,7 +157,7 @@ export default function PositionPage() {
                     <span className="font-bold text-text-primary text-lg">{p.playerName}</span>
                     {p.ratingResult && <StatusBadge status={p.ratingResult.tier} />}
                     <StatusBadge status={p.status} />
-                    {p.isRookie && <span className="badge bg-blue-100 text-blue-700">新秀</span>}
+                    {p.isRookie && <span className="badge bg-[rgba(125,142,163,0.15)] text-morandi-blue border border-[rgba(125,142,163,0.25)]">新秀</span>}
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="text-sm text-text-secondary">

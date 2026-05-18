@@ -7,57 +7,189 @@
     box-sizing: border-box;
   }
   body {
-    @apply bg-bg-alt text-text-primary antialiased;
+    @apply bg-bg-deep text-text-primary antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(125, 142, 163, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(158, 148, 168, 0.04) 0%, transparent 50%);
+    background-attachment: fixed;
   }
+
+  /* 自定义滚动条 */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.08);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.14); }
 }
 
 @layer components {
+  /* ====== 玻璃拟态卡片 ====== */
   .card {
-    @apply bg-surface border border-border rounded-lg p-4 shadow-sm;
+    @apply rounded-xl p-4;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.2s, background 0.2s;
   }
+  .card:hover {
+    border-color: rgba(255, 255, 255, 0.10);
+  }
+
+  /* ====== 按钮 ====== */
   .btn-primary {
-    @apply bg-text-primary text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50;
+    @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200;
+    background: rgba(139, 152, 168, 0.18);
+    border: 1px solid rgba(139, 152, 168, 0.25);
+    color: #e4ded6;
+    backdrop-filter: blur(8px);
   }
+  .btn-primary:hover {
+    background: rgba(139, 152, 168, 0.28);
+    border-color: rgba(139, 152, 168, 0.4);
+  }
+  .btn-primary:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
   .btn-secondary {
-    @apply bg-bg-alt border border-border text-text-primary px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors;
+    @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #9a948a;
   }
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #e4ded6;
+  }
+
   .btn-danger {
-    @apply bg-danger text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity;
+    @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200;
+    background: rgba(184, 129, 120, 0.15);
+    border: 1px solid rgba(184, 129, 120, 0.25);
+    color: #d4988e;
   }
+  .btn-danger:hover {
+    background: rgba(184, 129, 120, 0.25);
+  }
+
   .btn-warning {
-    @apply bg-warning text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity;
+    @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200;
+    background: rgba(191, 164, 122, 0.15);
+    border: 1px solid rgba(191, 164, 122, 0.25);
+    color: #d4b87e;
   }
+
+  /* ====== 输入框 ====== */
   .input-field {
-    @apply w-full border border-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-text-primary/20 focus:border-text-primary transition-colors;
+    @apply w-full rounded-md px-3 py-2 text-sm transition-all duration-200;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e4ded6;
+    outline: none;
   }
+  .input-field::placeholder { color: #69645e; }
+  .input-field:focus {
+    border-color: rgba(139, 152, 168, 0.4);
+    box-shadow: 0 0 0 3px rgba(139, 152, 168, 0.08);
+  }
+  /* Number input spin button on dark bg */
+  .input-field[type="number"] { color-scheme: dark; }
+
   .select-field {
-    @apply w-full border border-border rounded-md px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-text-primary/20;
+    @apply w-full rounded-md px-3 py-2 text-sm transition-all duration-200;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e4ded6;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' fill='none' stroke='%239a948a' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 28px;
   }
+  .select-field:focus {
+    border-color: rgba(139, 152, 168, 0.4);
+    box-shadow: 0 0 0 3px rgba(139, 152, 168, 0.08);
+  }
+  .select-field option {
+    background: #111827;
+    color: #e4ded6;
+  }
+
+  /* ====== 标签 ====== */
   .label {
-    @apply block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-1;
+    @apply block text-xs font-semibold uppercase tracking-wider mb-1;
+    color: #9a948a;
   }
+
+  /* ====== 徽章 ====== */
   .badge {
     @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold;
   }
   .badge-success {
-    @apply badge bg-success/10 text-success;
+    @apply badge;
+    background: rgba(142, 163, 142, 0.12);
+    color: #a3b8a3;
+    border: 1px solid rgba(142, 163, 142, 0.2);
   }
   .badge-warning {
-    @apply badge bg-warning/10 text-warning;
+    @apply badge;
+    background: rgba(191, 164, 122, 0.12);
+    color: #d4b87e;
+    border: 1px solid rgba(191, 164, 122, 0.2);
   }
   .badge-danger {
-    @apply badge bg-danger/10 text-danger;
+    @apply badge;
+    background: rgba(184, 129, 120, 0.12);
+    color: #d4988e;
+    border: 1px solid rgba(184, 129, 120, 0.2);
   }
+
+  /* ====== Banner 横幅 ====== */
   .banner-warning {
-    @apply bg-warning/10 border border-warning/30 text-warning rounded-lg p-3 flex items-center gap-3;
+    @apply rounded-lg p-3 flex items-center gap-3 text-sm;
+    background: rgba(191, 164, 122, 0.08);
+    border: 1px solid rgba(191, 164, 122, 0.2);
+    color: #d4b87e;
+    backdrop-filter: blur(8px);
   }
   .banner-danger {
-    @apply bg-danger/10 border border-danger/30 text-danger rounded-lg p-3 flex items-center gap-3;
+    @apply rounded-lg p-3 flex items-center gap-3 text-sm;
+    background: rgba(184, 129, 120, 0.08);
+    border: 1px solid rgba(184, 129, 120, 0.2);
+    color: #d4988e;
+    backdrop-filter: blur(8px);
+  }
+
+  /* ====== 表格 ====== */
+  .glass-table {
+    @apply w-full text-sm;
+  }
+  .glass-table th {
+    @apply text-left py-2 px-3 font-medium;
+    color: #9a948a;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .glass-table td {
+    @apply py-2 px-3;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  /* ====== 图表容器 ====== */
+  .chart-container text {
+    fill: #9a948a !important;
   }
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { @apply bg-bg-alt; }
-::-webkit-scrollbar-thumb { @apply bg-gray-300 rounded-full; }
+/* 选中文字颜色 */
+::selection {
+  background: rgba(139, 152, 168, 0.3);
+  color: #e4ded6;
+}

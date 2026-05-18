@@ -96,7 +96,7 @@ export default function EventPage() {
       })}
 
       {expiredWindows.map(ew => (
-        <div key={ew.id} className="banner-danger border-red-400 bg-red-50">
+        <div key={ew.id} className="banner-danger">
           <div className="flex-1">
             <div className="font-semibold text-sm">⚠️ 卖出窗口已过期: {ew.playerName}</div>
             <div className="text-xs mt-1">超过48小时未操作，请立即处理</div>

@@ -18,7 +18,7 @@ export function ScoreBar({ label, score, weight, maxScore = 10 }: {
   return (
     <div className="flex items-center gap-3">
       <div className="w-28 text-xs text-text-secondary shrink-0">{label}</div>
-      <div className="flex-1 bg-gray-100 rounded-full h-2.5 overflow-hidden">
+      <div className="flex-1 bg-white/10 rounded-full h-2.5 overflow-hidden">
         <div
           className={`h-full rounded-full transition-all duration-500 ${barColor}`}
           style={{ width: `${pct}%` }}

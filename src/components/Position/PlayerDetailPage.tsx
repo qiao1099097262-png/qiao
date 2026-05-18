@@ -245,7 +245,7 @@ export default function PlayerDetailPage() {
               <h1 className="text-xl font-bold text-text-primary">{player.playerName}</h1>
               {player.ratingResult && <StatusBadge status={player.ratingResult.tier} />}
               <StatusBadge status={player.status} />
-              {player.isRookie && <span className="badge bg-blue-100 text-blue-700">新秀</span>}
+              {player.isRookie && <span className="badge bg-[rgba(125,142,163,0.15)] text-morandi-blue border border-[rgba(125,142,163,0.25)]">新秀</span>}
               <button onClick={() => setEditingPlayer(true)} className="text-xs btn-secondary ml-auto">✏️ 编辑</button>
             </div>
 
@@ -373,7 +373,7 @@ export default function PlayerDetailPage() {
                     <button onClick={() => handleDeleteCard(card.id)} className="text-xs text-danger">删除</button>
                   </div>
                 </div>
-                <div className="mt-2 grid grid-cols-3 gap-2 text-xs bg-gray-50 rounded p-2">
+                <div className="mt-2 grid grid-cols-3 gap-2 text-xs bg-white/5 rounded p-2">
                   <div><span className="text-text-secondary">目标止盈: </span><span className="font-mono text-success font-semibold">¥{lines.stopProfit.toLocaleString()}</span></div>
                   <div><span className="text-text-secondary">强制止盈: </span><span className="font-mono text-warning font-semibold">¥{lines.forcedProfit.toLocaleString()}</span></div>
                   <div><span className="text-text-secondary">止损: </span><span className="font-mono text-danger font-semibold">¥{lines.stopLoss.toLocaleString()}</span></div>
@@ -390,10 +390,10 @@ export default function PlayerDetailPage() {
           {/* 成长评分 */}
           {growth && (
             <div className={`card border-2 ${
-              growth.score >= 30 ? 'border-success/50 bg-success/5' :
-              growth.score >= 10 ? 'border-blue-300 bg-blue-50' :
+              growth.score >= 30 ? 'border-[rgba(142,163,142,0.25)] bg-[rgba(142,163,142,0.06)]' :
+              growth.score >= 10 ? 'border-[rgba(125,142,163,0.25)] bg-[rgba(125,142,163,0.06)]' :
               growth.score >= -10 ? 'border-border' :
-              'border-danger/50 bg-danger/5'
+              'border-[rgba(184,129,120,0.25)] bg-[rgba(184,129,120,0.06)]'
             }`}>
               <h3 className="text-sm font-bold mb-2">📊 成长趋势评分</h3>
               <div className="text-2xl font-bold mb-2">{growth.label}</div>

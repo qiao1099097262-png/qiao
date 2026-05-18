@@ -215,7 +215,7 @@ export default function RatingPage() {
         </div>
       )}
       {rci.temperature === 'extreme-cold' && (
-        <div className="bg-blue-50 border border-blue-200 text-blue-700 rounded-lg p-3 text-sm">
+        <div className="rounded-lg p-3 text-sm bg-[rgba(125,142,163,0.08)] border border-[rgba(125,142,163,0.2)] text-morandi-blue">
           ✓ 市场偏冷，建仓安全边际较高，止损线可放宽 5–10%
         </div>
       )}
@@ -401,7 +401,7 @@ export default function RatingPage() {
                     </tbody>
                   </table>
                 </div>
-                <div className="text-xs text-text-secondary bg-gray-50 rounded p-2">
+                <div className="text-xs text-text-secondary bg-white/5 rounded p-2">
                   💡 <strong>预期差逻辑：</strong>用卡的实际入手成本 × 目标卖出倍数上限（×{maxMult}），对比 Target 顶峰期价格区间。若预期峰值处于 Target 突破期/成名期水平，说明市场存在低估机会。
                 </div>
               </div>
@@ -411,7 +411,7 @@ export default function RatingPage() {
           {!added ? (
             <button onClick={handleAddToPortfolio} className="btn-primary w-full">添加到持仓</button>
           ) : (
-            <div className="card bg-success/5 border-success/30 text-center text-success text-sm py-3">
+            <div className="card text-center text-sm py-3 !bg-[rgba(142,163,142,0.06)] !border-[rgba(142,163,142,0.2)] !text-[#a3b8a3]">
               ✓ 已添加至持仓 — 前往「持仓管理」添加该球员的卡片记录
             </div>
           )}

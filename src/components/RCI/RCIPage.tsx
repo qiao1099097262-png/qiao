@@ -116,11 +116,11 @@ export default function RCIPage() {
 
   // Chart data for the thermometer display
   const tempBands = [
-    { label: '极冷', range: '0–20%', color: 'bg-blue-900' },
-    { label: '偏冷', range: '20–40%', color: 'bg-blue-400' },
-    { label: '正常', range: '40–60%', color: 'bg-gray-400' },
-    { label: '偏热', range: '60–80%', color: 'bg-orange-400' },
-    { label: '极热', range: '80–100%', color: 'bg-red-500' },
+    { label: '极冷', range: '0–20%', color: 'bg-[#3d5f8a]' },
+    { label: '偏冷', range: '20–40%', color: 'bg-[#5f85b0]' },
+    { label: '正常', range: '40–60%', color: 'bg-[#7a7d82]' },
+    { label: '偏热', range: '60–80%', color: 'bg-[#c49260]' },
+    { label: '极热', range: '80–100%', color: 'bg-[#c06858]' },
   ];
 
   return (
@@ -169,7 +169,7 @@ export default function RCIPage() {
         </div>
 
         {/* 操作影响提示 */}
-        <div className="mt-3 p-3 bg-gray-50 rounded-lg text-xs text-text-secondary space-y-1">
+        <div className="mt-3 p-3 bg-white/5 rounded-lg text-xs text-text-secondary space-y-1">
           {rci.temperature === 'extreme-cold' && (
             <>
               <div>• 市场低迷，建仓安全边际高</div>
@@ -231,7 +231,7 @@ export default function RCIPage() {
         </div>
 
         {showAnchorForm && (
-          <div className="mb-4 p-3 bg-gray-50 rounded-lg space-y-2">
+          <div className="mb-4 p-3 bg-white/5 rounded-lg space-y-2">
             <div className="grid grid-cols-2 gap-2">
               <input className="input-field" placeholder="球员姓名" value={anchorForm.playerName}
                 onChange={e => setAnchorForm({ ...anchorForm, playerName: e.target.value })} />
@@ -282,7 +282,7 @@ export default function RCIPage() {
               {card.priceHistory.length > 0 && (
                 <div className="mt-2 flex flex-wrap gap-1">
                   {card.priceHistory.slice(-10).map((p, i) => (
-                    <span key={i} className="text-xs bg-gray-100 px-2 py-0.5 rounded font-mono">
+                    <span key={i} className="text-xs bg-white/10 px-2 py-0.5 rounded font-mono">
                       {p.date}: ¥{p.price}
                     </span>
                   ))}

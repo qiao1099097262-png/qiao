@@ -132,11 +132,11 @@ export const ROOKIE_SELL_STAGES = [
 // RCI 温度档位
 // ============================================================
 export const RCI_TEMPERATURE_CONFIG = {
-  'extreme-cold': { min: 0, max: 20, label: '极冷', color: 'rci-cold', bgClass: 'bg-blue-900' },
-  'cool': { min: 20, max: 40, label: '偏冷', color: 'rci-cool', bgClass: 'bg-blue-400' },
-  'normal': { min: 40, max: 60, label: '正常', color: 'rci-normal', bgClass: 'bg-gray-400' },
-  'warm': { min: 60, max: 80, label: '偏热', color: 'rci-warm', bgClass: 'bg-orange-400' },
-  'extreme-hot': { min: 80, max: 100, label: '极热', color: 'rci-hot', bgClass: 'bg-red-500' },
+  'extreme-cold': { min: 0, max: 20, label: '极冷', color: 'rci-cold', bgClass: 'bg-[#3d5f8a]' },
+  'cool': { min: 20, max: 40, label: '偏冷', color: 'rci-cool', bgClass: 'bg-[#5f85b0]' },
+  'normal': { min: 40, max: 60, label: '正常', color: 'rci-normal', bgClass: 'bg-[#7a7d82]' },
+  'warm': { min: 60, max: 80, label: '偏热', color: 'rci-warm', bgClass: 'bg-[#c49260]' },
+  'extreme-hot': { min: 80, max: 100, label: '极热', color: 'rci-hot', bgClass: 'bg-[#c06858]' },
 } as const;
 
 // ============================================================
