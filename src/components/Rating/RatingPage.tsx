@@ -3,8 +3,8 @@ import type { PlayerInputData, RatingResult } from '../../types';
 import { calculateRating } from '../../utils/scoring';
 import { parseRawPlayerData } from '../../utils/deepseek';
 import { useRCI } from '../../hooks/useRCI';
-import { generateId, addPlayerHolding } from '../../utils/storage';
-import { LEAGUE_LABELS, TEAM_RANK_LABELS } from '../../constants';
+import { generateId, addPlayerHolding, loadTargets } from '../../utils/storage';
+import { LEAGUE_LABELS, TEAM_RANK_LABELS, SCARCITY_MULTIPLIERS } from '../../constants';
 import { ScoreBar, StatusBadge, MetricCard } from '../Common';
 
 type InputMode = 'form' | 'paste';
@@ -161,7 +161,7 @@ export default function RatingPage() {
       isRookie: (parseInt(form.age) || 18) <= 22,
       rookieSellProgress: 0,
       status: 'holding',
-      notes: `评级 ${result.totalScore} 分 · ${result.tier === 'buy' ? '买入' : result.tier === 'watch' ? '观望' : '不买'}`,
+      notes: `评级 ${result.totalScore} 分 · ${result.tier === 'moderate-buy' ? '中度持仓' : result.tier === 'light-buy' ? '轻量持仓' : '不买'}`,
       cards: [],
       seasons: [{
         season: new Date().getFullYear() + '-' + (new Date().getFullYear() + 1).toString().slice(2),
@@ -211,12 +211,12 @@ export default function RatingPage() {
 
       {rci.temperature === 'extreme-hot' && (
         <div className="banner-warning text-sm">
-          ⚠️ 当前市场极热 (百分位 {rci.percentile}%)，买入门槛已从 80 分提高至 85 分
+          ⚠️ 当前市场极热 (百分位 {rci.percentile}%)，持仓门槛已从 80 分提至 85 分
         </div>
       )}
       {rci.temperature === 'extreme-cold' && (
         <div className="bg-blue-50 border border-blue-200 text-blue-700 rounded-lg p-3 text-sm">
-          ✓ 市场偏冷，买入安全边际较高，止损线可放宽 5–10%
+          ✓ 市场偏冷，建仓安全边际较高，止损线可放宽 5–10%
         </div>
       )}
 
@@ -345,7 +345,6 @@ export default function RatingPage() {
               <span className="text-sm text-text-secondary">/100</span>
               <StatusBadge status={result.tier} />
             </div>
-            <div className="text-xs text-text-secondary">建议持仓: {result.suggestedHoldings}</div>
           </div>
 
           <div className="card space-y-2">
@@ -356,11 +355,58 @@ export default function RatingPage() {
             ))}
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             <MetricCard label="目标卖出倍数" value={`×${result.targetSellMultiplier.min} – ×${result.targetSellMultiplier.max}`} />
-            <MetricCard label="建议持仓量" value={result.suggestedHoldings} />
             <MetricCard label="止损倍数" value={`×${result.stopLossMultiplier}`} colorClass="text-danger" />
           </div>
+
+          {/* Target 预期差对比 */}
+          {(() => {
+            const targets = loadTargets();
+            const matches = targets.filter(t =>
+              t.position === (form.position as any) && t.league === form.league
+            );
+            if (matches.length === 0) return null;
+            const maxMult = result.targetSellMultiplier.max;
+            const minMult = result.targetSellMultiplier.min;
+            return (
+              <div className="card space-y-3">
+                <h3 className="text-sm font-bold text-text-primary">
+                  📈 Target 预期差对比（同位置·同联赛）
+                </h3>
+                <p className="text-xs text-text-secondary">
+                  当前评级目标卖出倍数 ×{minMult}–×{maxMult}，下方为参照球员各阶段历史卡价区间
+                </p>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="text-text-secondary border-b border-border">
+                        <th className="text-left py-1.5 pr-2">Target 球员</th>
+                        <th className="text-right py-1.5 px-2">出道期</th>
+                        <th className="text-right py-1.5 px-2">突破期</th>
+                        <th className="text-right py-1.5 px-2">成名期</th>
+                        <th className="text-right py-1.5 pl-2">顶峰期</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {matches.map(t => (
+                        <tr key={t.id} className="border-b border-border/50">
+                          <td className="py-1.5 pr-2 font-medium">{t.name}</td>
+                          <td className="text-right py-1.5 px-2 font-mono">¥{t.priceHistory.entry.low}–{t.priceHistory.entry.high}</td>
+                          <td className="text-right py-1.5 px-2 font-mono">¥{t.priceHistory.early.low}–{t.priceHistory.early.high}</td>
+                          <td className="text-right py-1.5 px-2 font-mono">¥{t.priceHistory.breakout.low}–{t.priceHistory.breakout.high}</td>
+                          <td className="text-right py-1.5 pl-2 font-mono">¥{t.priceHistory.peak.low}–{t.priceHistory.peak.high}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="text-xs text-text-secondary bg-gray-50 rounded p-2">
+                  💡 <strong>预期差逻辑：</strong>用卡的实际入手成本 × 目标卖出倍数上限（×{maxMult}），对比 Target 顶峰期价格区间。若预期峰值处于 Target 突破期/成名期水平，说明市场存在低估机会。
+                </div>
+              </div>
+            );
+          })()}
 
           {!added ? (
             <button onClick={handleAddToPortfolio} className="btn-primary w-full">添加到持仓</button>

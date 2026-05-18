@@ -102,8 +102,8 @@ export const SCARCITY_MULTIPLIERS: Record<CardType, number> = {
 // 投资建议档位
 // ============================================================
 export const INVESTMENT_TIERS = {
-  buy: { minScore: 80, label: '买入', color: 'success' },
-  watch: { minScore: 60, label: '观望', color: 'warning' },
+  'moderate-buy': { minScore: 80, label: '中度持仓', color: 'success' },
+  'light-buy': { minScore: 70, label: '轻量持仓', color: 'warning' },
   pass: { minScore: 0, label: '不买', color: 'danger' },
 } as const;
 

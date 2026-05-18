@@ -32,10 +32,9 @@ export interface SixDimensionScores {
 
 export interface RatingResult {
   totalScore: number;
-  tier: 'buy' | 'watch' | 'pass';
+  tier: 'moderate-buy' | 'light-buy' | 'pass';
   dimensionScores: SixDimensionScores;
   targetSellMultiplier: { min: number; max: number };  // 基于档位的价格倍数，不含稀缺乘数
-  suggestedHoldings: string;
   stopProfitMultiplier: number;   // 止盈倍数（相对成本）
   forcedStopProfitMultiplier: number;
   stopLossMultiplier: number;     // 止损倍数

@@ -115,26 +115,20 @@ export function calculateRating(data: PlayerInputData, rciAdjust: boolean = fals
   }
 
   const tier: RatingResult['tier'] =
-    adjustedScore >= 80 ? 'buy' :
-    adjustedScore >= 60 ? 'watch' : 'pass';
+    adjustedScore >= 80 ? 'moderate-buy' :
+    adjustedScore >= 70 ? 'light-buy' : 'pass';
 
   // 目标卖出倍数（基于档位，不含稀缺乘数）
   let minMult: number, maxMult: number;
-  if (tier === 'buy') { minMult = 1.8; maxMult = 3.5; }
-  else if (tier === 'watch') { minMult = 1.3; maxMult = 2.2; }
+  if (tier === 'moderate-buy') { minMult = 1.8; maxMult = 3.5; }
+  else if (tier === 'light-buy') { minMult = 1.3; maxMult = 2.2; }
   else { minMult = 0.9; maxMult = 1.4; }
-
-  let suggestedHoldings: string;
-  if (tier === 'buy') suggestedHoldings = '2–3张';
-  else if (tier === 'watch') suggestedHoldings = '1–2张';
-  else suggestedHoldings = '不超过1张';
 
   return {
     totalScore: adjustedScore,
     tier,
     dimensionScores,
     targetSellMultiplier: { min: minMult, max: maxMult },
-    suggestedHoldings,
     stopProfitMultiplier: minMult,
     forcedStopProfitMultiplier: minMult * 1.2,
     stopLossMultiplier: 0.6,

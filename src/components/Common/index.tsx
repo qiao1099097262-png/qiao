@@ -41,8 +41,8 @@ export function StatusBadge({ status, label }: { status: string; label?: string 
     'sell-window': 'badge-warning',
     'stop-loss-warning': 'badge-danger',
     'time-stop-near': 'badge-danger',
-    buy: 'badge-success',
-    watch: 'badge-warning',
+    'moderate-buy': 'badge-success',
+    'light-buy': 'badge-warning',
     pass: 'badge-danger',
   };
   const labelMap: Record<string, string> = {
@@ -50,8 +50,8 @@ export function StatusBadge({ status, label }: { status: string; label?: string 
     'sell-window': '卖出窗口开启',
     'stop-loss-warning': '止损警告',
     'time-stop-near': '时间止损临近',
-    buy: '买入',
-    watch: '观望',
+    'moderate-buy': '中度持仓',
+    'light-buy': '轻量持仓',
     pass: '不买',
   };
 

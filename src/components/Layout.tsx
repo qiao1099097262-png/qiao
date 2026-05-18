@@ -32,7 +32,7 @@ export default function Layout() {
             <span className="text-white/90">⚠ 当前市场偏热，优先考虑止盈</span>
           )}
           {rci.temperature === 'extreme-cold' && (
-            <span className="text-white/90">✓ 买入安全边际较高</span>
+            <span className="text-white/90">✓ 建仓安全边际较高</span>
           )}
         </div>
         <button

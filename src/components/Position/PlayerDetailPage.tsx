@@ -263,8 +263,7 @@ export default function PlayerDetailPage() {
                 </div>
                 <div className="text-xs text-text-secondary">
                   目标卖出: ×{player.ratingResult.targetSellMultiplier.min} – ×{player.ratingResult.targetSellMultiplier.max} · 
-                  止损: ×{player.ratingResult.stopLossMultiplier} · 
-                  建议持仓: {player.ratingResult.suggestedHoldings}
+                  止损: ×{player.ratingResult.stopLossMultiplier}
                 </div>
               </>
             )}

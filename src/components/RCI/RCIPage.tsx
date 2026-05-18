@@ -172,7 +172,7 @@ export default function RCIPage() {
         <div className="mt-3 p-3 bg-gray-50 rounded-lg text-xs text-text-secondary space-y-1">
           {rci.temperature === 'extreme-cold' && (
             <>
-              <div>• 市场低迷，买入安全边际高</div>
+              <div>• 市场低迷，建仓安全边际高</div>
               <div>• 新卡出手需降低预期，耐心等待</div>
               <div>• 止损线可放宽 5–10%</div>
             </>
@@ -194,7 +194,7 @@ export default function RCIPage() {
           )}
           {rci.temperature === 'extreme-hot' && (
             <>
-              <div>• 情绪溢价显著，买入门槛提至 85 分</div>
+              <div>• 情绪溢价显著，持仓门槛提至 85 分</div>
               <div>• 持仓优先考虑出手</div>
             </>
           )}
