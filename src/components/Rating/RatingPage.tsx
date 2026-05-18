@@ -7,6 +7,19 @@ import { generateId, addPlayerHolding, loadTargets } from '../../utils/storage';
 import { LEAGUE_LABELS, TEAM_RANK_LABELS, SCARCITY_MULTIPLIERS } from '../../constants';
 import { ScoreBar, StatusBadge, MetricCard } from '../Common';
 
+// 提取到组件外部，避免重渲染时失焦
+function NumInput({ value, onChange, label }: { value: string; onChange: (v: string) => void; label: string }) {
+  return (
+    <div>
+      <label className="label">{label}</label>
+      <input className="input-field" type="number" step="any"
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        placeholder="0" />
+    </div>
+  );
+}
+
 type InputMode = 'form' | 'paste';
 
 // 表单状态用字符串存储，避免显示 0
@@ -194,17 +207,6 @@ export default function RatingPage() {
     agePotential: '年龄与上限空间',
   };
 
-  // 数值输入辅助组件
-  const NumInput = ({ field, label }: { field: keyof FormState; label: string }) => (
-    <div>
-      <label className="label">{label}</label>
-      <input className="input-field" type="number" step="any"
-        value={form[field]}
-        onChange={e => updateField(field, e.target.value)}
-        placeholder="0" />
-    </div>
-  );
-
   return (
     <div className="space-y-6">
       <h1 className="text-xl font-bold text-text-primary">球员筛选 & 评级</h1>
@@ -288,14 +290,14 @@ export default function RatingPage() {
           <div className="card">
             <h3 className="text-sm font-bold text-text-primary mb-3">表现数据（本赛季总数）</h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <NumInput field="appearances" label="出场次数" />
-              <NumInput field="starts" label="首发次数" />
-              <NumInput field="minutes" label="出场分钟" />
-              <NumInput field="goals" label="进球" />
-              <NumInput field="assists" label="助攻" />
-              <NumInput field="teamTotalGoals" label="球队总进球" />
-              <NumInput field="keyPasses" label="关键传球（总数）" />
-              <NumInput field="shots" label="射门（总数）" />
+              <NumInput value={form.appearances} onChange={v => updateField('appearances', v)} label="出场次数" />
+              <NumInput value={form.starts} onChange={v => updateField('starts', v)} label="首发次数" />
+              <NumInput value={form.minutes} onChange={v => updateField('minutes', v)} label="出场分钟" />
+              <NumInput value={form.goals} onChange={v => updateField('goals', v)} label="进球" />
+              <NumInput value={form.assists} onChange={v => updateField('assists', v)} label="助攻" />
+              <NumInput value={form.teamTotalGoals} onChange={v => updateField('teamTotalGoals', v)} label="球队总进球" />
+              <NumInput value={form.keyPasses} onChange={v => updateField('keyPasses', v)} label="关键传球（总数）" />
+              <NumInput value={form.shots} onChange={v => updateField('shots', v)} label="射门（总数）" />
             </div>
             <p className="text-xs text-text-secondary mt-2">
               系统根据出场分钟自动换算每90分钟数据
@@ -306,9 +308,9 @@ export default function RatingPage() {
           <div className="card">
             <h3 className="text-sm font-bold text-text-primary mb-3">德转身价 (万欧)</h3>
             <div className="grid grid-cols-3 gap-3">
-              <NumInput field="currentMarketValue" label="当前身价" />
-              <NumInput field="marketValue12m" label="12个月前身价" />
-              <NumInput field="marketValuePeak" label="历史最高身价" />
+              <NumInput value={form.currentMarketValue} onChange={v => updateField('currentMarketValue', v)} label="当前身价" />
+              <NumInput value={form.marketValue12m} onChange={v => updateField('marketValue12m', v)} label="12个月前身价" />
+              <NumInput value={form.marketValuePeak} onChange={v => updateField('marketValuePeak', v)} label="历史最高身价" />
             </div>
           </div>
 
